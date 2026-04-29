@@ -40,10 +40,20 @@ module uart_if_tb;
 
       repeat(4)
       begin
-        int data;
-        bit parity;
+        logic [7:0] data;
+        logic parity;
         intf.recv_tx(data, parity);
         $display("Received data: %h, parity: %b", data, parity);
+      end
+
+      begin
+        intf.wait_tx_idle();
+        $display("Transmitter is idle");
+      end
+
+      begin
+        intf.wait_rx_idle();
+        $display("Receiver is idle");
       end
 
     join
